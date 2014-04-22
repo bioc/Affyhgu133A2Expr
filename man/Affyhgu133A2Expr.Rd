@@ -22,45 +22,6 @@ McCall, M. N., Uppal, K., Jaffee, H. A., Zilliox, M. J., & Irizarry, R. A. (2011
 
 Barrett T., et al. (2007) NCBI GEO: mining tens of millions of expression profiles - database and tools update. Nuscl. Acids Res. 35, D760-D765.
 }
-\examples{
 
-## GSCA will automatically read in the necessary gene expression data according to given input.
-## Thus, normally users do not need to read in the data themselves.
-
-## To manually read in gene expression data, for example Entrez GeneID 10000:
-geneid <- 10000
-path <- system.file("extdata",package="Affyhgu133A2Expr")
-load(paste0(path,"/",geneid,".rda"))
-## The expression vector named "e" is read in
-
-## To read in gene expression data of multiple Entrez GeneID:
-## This function represents select() interface in most Bioconductor annotation packages
-search <- function(geneid) {
-exprdat <- matrix(0,nrow=length(geneid),ncol=313)
-path <- system.file("extdata",package="Affyhgu133A2Expr")
-for (i in 1:length(geneid)) {
-	load(paste0(path,"/",geneid[i],".rda"))
-	exprdat[i,] <- e
-}
-return(exprdat)
-}
-## Run the function on desired genes, for example Entrez GeneID 10000,10001,10002
-Exprgeneset <- search(c(10000,10001,10002))
-str(Exprgeneset)
-## Which returns a matrix of 3 rows and 313 columns containing the expression profiles of the 3 genes
-
-## To check all Entrez GeneID included in the data package:
-path <- system.file("extdata",package="Affyhgu133A2Expr")
-sub(".rda","",list.files(path))
-
-## To check the reference table which contains
-## sample name, sample id, sample type, and experiment id for each sample
-data(Affyhgu133A2Exprtab)
-str(Affyhgu133A2Exprtab)
-
-## Add sample name to expression data
-colnames(Exprgeneset) <- Affyhgu133A2Exprtab$SampleName
-
-}
 \keyword{datasets,GPL571,database,Affyhgu133A2Expr}
 
